@@ -16,7 +16,10 @@ public class Course {
 		this(courseCode, DEFAULT_TITLE);
 	}
 	
-	
+	@Override
+	public String toString() {
+		return this.courseCode;
+	}
 	
 	@Override
 	public int hashCode() {

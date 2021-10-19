@@ -1,16 +1,66 @@
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Vector;
 
 public class AssignmentList {
 
 	private List<Assignment> assignments;
+	private SortingFields currentSortingMethod;
 
 	public AssignmentList() {
-		assignments = new ArrayList<>();
+		assignments = new Vector<>();
+		this.currentSortingMethod = SortingFields.DUE_DATE;
 	}
+	
+	public void printAssignmentList() {
+		for (Assignment a : assignments) {
+			System.out.println(a);
+		}
+	}
+	
+	public void addAssignment(Assignment assignmentToAdd) {
+		assignments.add(assignmentToAdd);
+		this.sortListByField(this.currentSortingMethod);
+	}
+	
+	public void removeAssignment(Assignment assignmentToRemove) {
+		assignments.remove(assignmentToRemove);
+	}
+	
+	public enum SortingFields {
+		PRIORITY, ASSIGNED_DATE, DUE_DATE, COURSE, TITLE, DESCRIPTION, STATUS;
+	}
+	
+	public void sortListByField(SortingFields field) {
+		this.currentSortingMethod = field;
+		
+		switch (field) {
+		case PRIORITY:
+			this.sortListByPriority();
+			break;
+		case ASSIGNED_DATE:
+			this.sortListByAssignedDate();
+			break;
+		case DUE_DATE:
+			this.sortListbyDueDate();
+			break;
+		case COURSE:
+			this.sortListByCourse();
+			break;
+		case TITLE:
+			this.sortListByTitle();
+			break;
+		case DESCRIPTION:
+			this.sortListByDescription();
+			break;
+		case STATUS:
+			this.sortListByStatus();
+			break;
+		}
+	}
+	
 
-	public void sortListByPriority() {
+	private void sortListByPriority() {
 		assignments.sort(new Comparator<Assignment>() {
 
 			@Override
@@ -21,7 +71,7 @@ public class AssignmentList {
 		});
 	}
 
-	public void sortListByAssignedDate() {
+	private void sortListByAssignedDate() {
 		assignments.sort(new Comparator<Assignment>() {
 
 			@Override
@@ -32,7 +82,7 @@ public class AssignmentList {
 		});
 	}
 
-	public void sortListbyDueDate() {
+	private void sortListbyDueDate() {
 		assignments.sort(new Comparator<Assignment>() {
 
 			@Override
@@ -43,7 +93,7 @@ public class AssignmentList {
 		});
 	}
 
-	public void sortListByCourse() {
+	private void sortListByCourse() {
 		assignments.sort(new Comparator<Assignment>() {
 
 			@Override
@@ -55,7 +105,7 @@ public class AssignmentList {
 		});
 	}
 
-	public void sortListByTitle() {
+	private void sortListByTitle() {
 		assignments.sort(new Comparator<Assignment>() {
 
 			@Override
@@ -66,7 +116,7 @@ public class AssignmentList {
 		});
 	}
 
-	public void sortListByDescription() {
+	private void sortListByDescription() {
 		assignments.sort(new Comparator<Assignment>() {
 
 			@Override
@@ -77,7 +127,7 @@ public class AssignmentList {
 		});
 	}
 
-	public void sortListByStatus() {
+	private void sortListByStatus() {
 		assignments.sort(new Comparator<Assignment>() {
 
 			@Override

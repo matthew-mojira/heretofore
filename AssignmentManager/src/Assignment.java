@@ -1,19 +1,44 @@
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Assignment {
-	private int 	priority;
-	private Date	assignedDate;
-	private Date	dueDate;
-	private Course	course;
-	private String	title;
-	private String	description;
-	private Status	status;
-	
+public class Assignment implements Cloneable {
+
+	public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("EEE MM/dd 'at' hh:mm aaa");
+
+	private int priority;
+	private Date assignedDate;
+	private Date dueDate;
+	private Course course;
+	private String title;
+	private String description;
+	private Status status;
+
 	public Assignment() {
 		this.priority = 0;
-		this.assignedDate = new Date();	// now
-		this.dueDate = new Date();	// now
+		this.assignedDate = new Date(); // now
+		this.dueDate = new Date(); // now
 		this.course = null;
+	}
+
+	@Override
+	public Assignment clone() {
+		Assignment clone = new Assignment();
+
+		clone.priority = this.priority;
+		clone.assignedDate = (Date) this.assignedDate.clone();
+		clone.dueDate = (Date) this.dueDate.clone();
+		clone.course = this.course;
+		clone.title = this.title;
+		clone.description = this.description;
+		clone.status = this.status;
+
+		return clone;
+	}
+
+	@Override
+	public String toString() {
+		return String.format("(%d) [%s] %s - %s: %s", priority, DATE_FORMAT.format(dueDate), course, title,
+				description);
 	}
 
 	/**
